@@ -34,9 +34,14 @@ endif
 STATIC=libwiringPi.a
 DYNAMIC=libwiringPi.so.$(VERSION)
 
+# If using crosstool-ng, replace with your prefix (e.g. armv8-rpi3-linux-gnueabihf-)
+HOST?=
+CC = $(HOST)gcc
+AR = $(HOST)ar
+RANLIB = $(HOST)ranlib
+
 #DEBUG	= -g -O0
 DEBUG	= -O2
-CC	= gcc
 INCLUDE	= -I.
 DEFS	= -D_GNU_SOURCE
 CFLAGS	= $(DEBUG) $(DEFS) -Wformat=2 -Wall -Wextra -Winline $(INCLUDE) -pipe -fPIC
@@ -72,8 +77,8 @@ static:		$(STATIC)
 
 $(STATIC):	$(OBJ)
 	$Q echo "[Link (Static)]"
-	$Q ar rcs $(STATIC) $(OBJ)
-	$Q ranlib $(STATIC)
+	$Q $(AR) rcs $(STATIC) $(OBJ)
+	$Q $(RANLIB) $(STATIC)
 #	@size   $(STATIC)
 
 $(DYNAMIC):	$(OBJ)

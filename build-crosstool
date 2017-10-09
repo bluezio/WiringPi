@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ "$#" != 2 ]; then
+  echo "Expected: $0 ct-ng-basedir ct-ng-prefix"
+  exit 1
+fi
+
+DESTDIR="$1"
+HOST="$2"
+CC="$DESTDIR/bin/${HOST}gcc"
+
+if [ ! -f "$CC" ]; then
+    echo "Could not find '$CC'"
+    exit 2
+fi
+
+run_make() {
+    DESTDIR="$DESTDIR" PREFIX=/ HOST="$HOST" LDCONFIG= make $@
+}
+
+for i in wiringPi devLib; do
+    pushd "$i"
+    run_make
+    run_make install
+    popd
+done

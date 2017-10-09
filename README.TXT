@@ -1,3 +1,14 @@
+Tweaks for crosstool-ng
+=======================
+
+Tweaked by Antonio Garcia-Dominguez (bluezio) to be more friendly towards the [crosstool-ng](http://crosstool-ng.github.io/) tool. To build the core and dev libraries and set them up, you can use this command:
+
+    ./build-crosstool path/to/your/ct-ng-basedir prefix
+
+For the Raspberry Pi 3 `armv8-rpi3-linux-gnueabihf` sample, it would look like this:
+
+    ./build-crosstool $HOME/x-tools/armv8-rpi3-linux-gnueabihf armv8-rpi3-linux-gnueabihf-
+
 Note
 ====
 
